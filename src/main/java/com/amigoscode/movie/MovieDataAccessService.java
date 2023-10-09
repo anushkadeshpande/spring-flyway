@@ -25,12 +25,7 @@ public class MovieDataAccessService implements MovieDao {
                 FROM movie
                 LIMIT 10;
                 """;
-        return jdbcTemplate.query(sql, (resultSet, i) -> {
-            return new Movie(resultSet.getInt("id"),
-            resultSet.getString("name"),
-            null,
-            LocalDate.parse(resultSet.getString("release_date")));
-        });
+        return jdbcTemplate.query(sql, new MovieRowMapper());
     }
 
     @Override
@@ -51,7 +46,14 @@ public class MovieDataAccessService implements MovieDao {
 
     @Override
     public Optional<Movie> selectMovieById(int id) {
+        // throw new UnsupportedOperationException("not implemented");
+        String sql = """
+                SELECT id, name, release_date 
+                FROM movie
         throw new UnsupportedOperationException("not implemented");
+                """;
+        List<Movie> movie = jdbcTemplate.query(sql, new MovieRowMapper(), id);
+        return movie.stream().findFirst();
     }
 
 }
