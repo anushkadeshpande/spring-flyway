@@ -1,5 +1,6 @@
 package com.amigoscode.movie;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -8,6 +9,12 @@ import java.util.Optional;
 
 @Repository
 public class MovieDataAccessService implements MovieDao {
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public MovieDataAccessService(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public List<Movie> selectMovies() {
