@@ -50,7 +50,7 @@ public class MovieDataAccessService implements MovieDao {
         String sql = """
                 SELECT id, name, release_date 
                 FROM movie
-        throw new UnsupportedOperationException("not implemented");
+                WHERE id = ?;
                 """;
         List<Movie> movie = jdbcTemplate.query(sql, new MovieRowMapper(), id);
         return movie.stream().findFirst();
